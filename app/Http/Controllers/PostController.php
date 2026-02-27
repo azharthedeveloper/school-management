@@ -93,8 +93,6 @@ class PostController extends Controller
                 'likes'
             ], 'like', '%' . $request->search . '%');
         })->get();
-
-
         return view('posts.index', compact('posts'));
     }
 
