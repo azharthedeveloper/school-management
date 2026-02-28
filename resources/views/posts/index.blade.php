@@ -235,6 +235,9 @@
                     @endforeach
                 </tbody>
             </table>
+            <div class="paginationDiv">
+                {{ $posts->appends(request()->query())->links('pagination::bootstrap-5') }}
+            </div>
         </div>
 
     </div>
