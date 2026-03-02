@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -160,6 +161,11 @@ class PostController extends Controller
             ]
         );
 
+        $image_path = null;
+        if ($request->hasFile('image_path')) {
+            $image_path = $request->file('image_path')->store('photos', 'public');
+        }
+
         $post = new Post();
         $post->title = $request->title;
         $post->description = $request->description;
@@ -167,10 +173,10 @@ class PostController extends Controller
         $post->status = $request->status;
         $post->views = $request->views;
         $post->likes = $request->likes;
+        $post->image_path = $image_path;
         $post->save();
 
         return redirect('posts');
-
     }
 
     public function edit($id)
@@ -237,13 +243,28 @@ class PostController extends Controller
             ]
         );
 
+        
+
         $post = Post::findOrFail($id);
+
+        $image_path = $post->image_path; // purani value rakho by default
+
+        if ($request->hasFile('image_path')) {
+            // purani image delete karo
+            if ($post->image_path) {
+                Storage::disk('public')->delete($post->image_path);
+            }
+            // nayi store karo
+            $image_path = $request->file('image_path')->store('photos', 'public');
+        }
+
         $post->title = $request->title;
         $post->description = $request->description;
         $post->post_type = $request->post_type;
         $post->status = $request->status;
         $post->views = $request->views;
         $post->likes = $request->likes;
+        $post->image_path = $image_path;
         $post->update();
 
         return redirect('posts');
@@ -251,7 +272,14 @@ class PostController extends Controller
 
     public function destroy(Request $request, $id)
     {
+        $post = Post::findOrFail($id);
 
-        dd($request->all(), $id);
+        if($post->image_path){
+            Storage::disk('public')->delete($post->image_path);
+        }
+
+        $post->delete();
+
+        return redirect('posts');
     }
 }

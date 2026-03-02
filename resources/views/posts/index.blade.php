@@ -207,7 +207,12 @@
                 <tbody>
                     @foreach ($posts as $post)
                         <tr>
-                            <td>{{ $post->id }}</td>
+                            <td>
+                                {{ $post->id }}
+                                @if ($post->image_path)
+                                <img src="{{ asset('storage/'. $post->image_path) }}" alt="ALT" width="70" height="45">                                    
+                                @endif
+                            </td>
                             <td>{{ $post->title }}</td>
                             <td><span class="badge-type">{{ $post->post_type }}</span></td>
                             <td>
