@@ -1,13 +1,15 @@
 <?php
 
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\StudentProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('/posts')->controller(PostController::class)->group(function(){
+Route::prefix('/posts')->controller(PostController::class)->group(function () {
     // Route::get('/', 'getData');
     // Route::get('/add-data', 'addData');
     // Route::get('/update-data', 'updateData');
@@ -21,9 +23,10 @@ Route::prefix('/posts')->controller(PostController::class)->group(function(){
     Route::get('/edit/{id}', 'edit')->name('posts-edit');
     Route::put('/update/{id}', 'update')->name('posts-update');
     Route::delete('/delete/{id}', 'destroy')->name('posts-delete');
-
-
 });
+
+Route::get('student', [StudentController::class, 'index']);
+Route::get('student-profile', [StudentProfileController::class, 'index']);
 
 
 

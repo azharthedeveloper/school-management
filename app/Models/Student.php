@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Student extends Model
 {
     use HasFactory;
+
+    public function studentProfile(){
+        return $this->hasOne(
+            StudentProfile::class, // Related Model
+            'student_id', // Foreign_id (Student Profile or Related Model)
+            'id' // Local_id (Student Model / Current Model)
+        );
+    }
 }

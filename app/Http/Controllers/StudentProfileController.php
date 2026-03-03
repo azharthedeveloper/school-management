@@ -12,7 +12,11 @@ class StudentProfileController extends Controller
      */
     public function index()
     {
-        //
+        //    $allProfiles = StudentProfile::all();
+
+        $profile_with_student = StudentProfile::with('student')->get();
+
+        return $profile_with_student;
     }
 
     /**
