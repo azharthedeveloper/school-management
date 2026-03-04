@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\ClassesController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentProfileController;
+use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -27,6 +29,8 @@ Route::prefix('/posts')->controller(PostController::class)->group(function () {
 
 Route::get('student', [StudentController::class, 'index']);
 Route::get('student-profile', [StudentProfileController::class, 'index']);
+Route::get('teacher', [TeacherController::class, 'index']);
+Route::get('classes', [ClassesController::class, 'index']);
 
 
 

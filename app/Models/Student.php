@@ -16,4 +16,13 @@ class Student extends Model
             'id' // Local_id (Student Model / Current Model)
         );
     }
+
+    public function classes(){
+        return $this->belongsToMany(
+            Classes::class,
+            'student_classes',
+            'student_id',
+            'class_id'
+        );
+    }
 }

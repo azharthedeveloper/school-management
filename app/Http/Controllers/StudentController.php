@@ -14,9 +14,11 @@ class StudentController extends Controller
     {
         // $allStudents = Student::all();
 
-        $student_with_profile = Student::with('studentProfile')->get();
+        // $student_with_profile = Student::with('studentProfile')->get();
 
-        return $student_with_profile;
+        $student = Student::with('classes')->get();
+
+        return $student;
     }
 
     /**
